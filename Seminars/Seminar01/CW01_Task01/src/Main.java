@@ -1,40 +1,86 @@
 public class Main {
     public static void main(String[] args) {
 
-        byte a = 1;
-        byte b = 7;
-        byte c = 2;
-        byte d = 1;
-        int rez_temp = a;
+        int n1 = 1;
+        int n2 = 7;
+        int d1 = 3;
+        int d2 = 1;
 
-        String rezult = null;
+        String rez1 = var_1(n1, n2, d1, d2);
+        String rez2 = var_2(n1, n2, d1, d2);
 
-        while (rez_temp <= b){
-            rez_temp = multiply(rez_temp, c);
-            rezult = rezult + "k1";
+        if(rez1 == "" && rez2 == "") {
+            System.out.println("Не возможно..");
+        }else if(rez1 != "" && rez1.length() < rez2.length()) {
+            System.out.println(rez1);
+        }else{
+            System.out.println(rez2);
+        }
+    }
 
-            if (rez_temp == b){
-                break;
-            }
+    static String var_1(int n1, int n2,int d1, int d2) {
 
-            rez_temp = addition(rez_temp, d);
-            rezult = rezult + "k2";
-            if (rez_temp == b){
-                break;
+        String rez = "";
+        int rez_umn = n1;
+        int temp_umn = n1;
+        while (temp_umn <= n2) {
+            temp_umn *= d1;
+            if (temp_umn <= n2) {
+                rez_umn = temp_umn;
+                rez += "k1,";
             }
         }
 
 
+        if (rez_umn == n2) {
+            return rez;
+        }
 
-        System.out.println(rezult);
+        int rez_sl = rez_umn;
+        while (rez_sl < n2) {
+            rez_sl += d2;
+            rez += "k2,";
+        }
 
-    }
+        if (rez_sl != n2) {
+            return "";
+        }
+        else{
+                return rez;
+            }
+        }
 
-    public static int multiply(int a, int c){
-        return a * c;
-    }
+    static String var_2(int n1, int n2,int d1, int d2) {
 
-    public static int addition(int a, int c){
-        return a + c;
+        String rez = "";
+        n1 += d2;
+        rez += "k2,";
+        //rez
+        int rez_umn = n1;
+        int temp_umn = n1;
+        while (temp_umn <= n2) {
+            temp_umn *= d1;
+            if (temp_umn <= n2) {
+                rez_umn = temp_umn;
+                rez += "k1,";
+            }
+        }
+
+        if (rez_umn == n2){
+            return rez;
+        }
+
+        int rez_sl = rez_umn;
+        while (rez_sl < n2) {
+            rez_sl += d2;
+            rez += "k2,";
+        }
+
+        if (rez_sl != n2) {
+            return "";
+        }else{
+            return rez;
+        }
     }
 }
+
