@@ -5,6 +5,8 @@ public class Main {
     static int number_steps = 1;
     static Сoordinates T_starta = new Сoordinates();
     static Сoordinates T_finish = new Сoordinates();
+    static ArrayList<Сoordinates> queue = new ArrayList<Сoordinates>();
+    static ArrayList<Сoordinates> copy_queue = new ArrayList<Сoordinates>();
     public static void main(String[] args) {
         int num_start = -5;
         int num_finish = -7;
@@ -14,6 +16,8 @@ public class Main {
         print_matrix(pole, num_start, num_finish, num_wall);
 
         wave(num_start, num_finish, num_wall); // запускаем волновой алгоритм
+
+        System.out.println();
 
         print_matrix(pole, num_start, num_finish, num_wall);
     }
@@ -52,11 +56,7 @@ public class Main {
         }
     }
     static void wave(int start, int finish, int wall){
-
-        ArrayList<Сoordinates> queue = new ArrayList<Сoordinates>();
-        ArrayList<Сoordinates> copy_queue = new ArrayList<Сoordinates>();
         int k, m;
-
         find_point(T_starta, start);
         find_point(T_finish, finish);
 
@@ -71,28 +71,22 @@ public class Main {
                 Сoordinates Temp_point = copy_queue.get(i);
                 k = Temp_point.i;
                 m = Temp_point.j;
-                if (k < 1){ // влево ходить не можем
-                    if (m < 1){ //вверх ходить не можем
-                        if (pole[k + 1][m] == 0) {// идем направо
-                            pole[k + 1][m] = number_steps;
-                            queue.add(new Сoordinates(k+1,m));
-                        }
-                        if (pole[k][m+1] == 0) {// идем вниз
-                            pole[k][m+1] = number_steps;
-                            queue.add(new Сoordinates(k,m+1));
-                        }
 
-                    }
-
+                if (k > 0){
+                    step_left(k, m);
                 }
-                number_steps += 1;
-
+                if (k < pole.length-1){
+                    step_right(k, m);
+                }
+                if (m > 0){
+                    step_up(k, m);
+                }
+                if (m < pole[m].length-1){
+                    step_down(k, m);
+                }
             }
-
-
+            number_steps += 1;
         }
-
-
     }
     static void find_point(Сoordinates N_point, int number){
         boolean flag = true;
@@ -109,6 +103,30 @@ public class Main {
             } else {
                 break;
             }
+        }
+    }
+    static void step_left(int i, int j){
+        if (pole[i - 1][j] == 0) {// идем налево
+            pole[i - 1][j] = number_steps;
+            queue.add(new Сoordinates(i-1,j));
+        }
+    }
+    static void step_right(int i, int j){
+        if (pole[i + 1][j] == 0) {// идем направо
+            pole[i + 1][j] = number_steps;
+            queue.add(new Сoordinates(i+1,j));
+        }
+    }
+    static void step_up(int i, int j){
+        if (pole[i][j - 1] == 0) {// идем вверх
+            pole[i][j - 1] = number_steps;
+            queue.add(new Сoordinates(i,j-1));
+        }
+    }
+    static void step_down(int i, int j){
+        if (pole[i][j+1] == 0) {// идем вниз
+            pole[i][j+1] = number_steps;
+            queue.add(new Сoordinates(i,j+1));
         }
     }
 }
