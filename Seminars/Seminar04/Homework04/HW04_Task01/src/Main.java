@@ -10,8 +10,8 @@ public class Main {
 
     }
     public static void print_array(int[] t_array){
-        for (int i = 0; i < t_array.length; i++){
-            System.out.print(t_array[i] + ", " );
+        for (int j : t_array) {
+            System.out.print(j + ", ");
         }
         System.out.println();
     }
