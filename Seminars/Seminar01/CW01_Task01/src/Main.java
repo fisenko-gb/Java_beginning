@@ -16,6 +16,8 @@ public class Main {
         }else{
             System.out.println(rez2);
         }
+
+        System.out.println(getWays(n1, n2, d1, d2));
     }
 
     static String var_1(int n1, int n2,int d1, int d2) {
@@ -81,6 +83,19 @@ public class Main {
         }else{
             return rez;
         }
+    }
+
+    static int getWays(int s, int e, int p, int m){
+        int[] ways = new int[e + 1];
+        ways[s] = 1;
+
+        for (int i = s + 1; i <= e; i++){
+            if (i % m == 0)
+                ways[i] = ways[i-p] + ways[i / m];
+            else
+                ways[i] = ways[i - p];
+        }
+        return ways[e];
     }
 }
 
