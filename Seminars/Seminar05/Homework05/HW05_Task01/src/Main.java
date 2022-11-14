@@ -68,9 +68,4 @@ class Node {
     public Node(int value) {
         this.value = value;
     }
-
-    public Node(int value, ArrayList son) {
-        this.value = value;
-
-    }
 }
